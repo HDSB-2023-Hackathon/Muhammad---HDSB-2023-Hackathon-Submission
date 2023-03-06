@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Slope Finder</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
+	<body>
+		<h1 style="text-align: center;">The Mega Slope Finder</h1>
+		<form onsubmit="return plotLines();">
+			<fieldset>
+				<legend>Line 1</legend>
+				<label for="x1">X1:</label>
+				<input type="number" id="x1" step="0.1" required>
+				<label for="y1">Y1:</label>
+				<input type="number" id="y1" step="0.1" required>
+				<label for="x2">X2:</label>
+				<input type="number" id="x2" step="0.1" required>
+				<label for="y2">Y2:</label>
+				<input type="number" id="y2" step="0.1" required>
+			</fieldset>
+			<fieldset>
+				<legend>Line 2</legend>
+				<label for="x3">X3:</label>
+				<input type="number" id="x3" step="0.1" required>
+				<label for="y3">Y3:</label>
+				<input type="number" id="y3" step="0.1" required>
+				<label for="x4">X4:</label>
+				<input type="number" id="x4" step="0.1" required>
+				<label for="y4">Y4:</label>
+				<input type="number" id="y4" step="0.1" required>
+			</fieldset>
+      <div style="text-align: center;padding-top: 3%;">
+			<button type="submit">Plot Lines</button>
+      </div>
+		</form>
+		<canvas id="graph"></canvas>
+		<div id="line-info"></div>
+		<script>
+			const graphCtx = document.getElementById('graph').getContext('2d');
+			let graphData = {
+				type: 'scatter',
+				data: {
+					datasets: []
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Coordinate Graph'
+					},
+					scales: {
+						xAxes: [{
+							type: 'linear',
+							position: 'bottom',
+							scaleLabel: {
+								display: true,
+								labelString: 'X'
+							}
+						}],
+						yAxes: [{
+							type: 'linear',
+							position: 'left',
+							scaleLabel: {
+								display: true,
+								labelString: 'Y'
+							}
+						}]
+					}
+				}
+			};
+			let graphChart = new Chart(graphCtx, graphData);
+
+			function plotLines() {
+				// read input values for both lines
+				let x1 = parseFloat(document.getElementById('x1').value);
+				let y1 = parseFloat(document.getElementById('y1').value);
+				let x2 = parseFloat(document.getElementById('x2').value);
+				let y2 = parseFloat(document.getElementById('y2').value);
+				let x3 = parseFloat(document.getElementById('x3').value);
+				let y3 = parseFloat(document.getElementById('y3').value);
+				let x4 = parseFloat(document.getElementById('x4').value);
+				let y4 = parseFloat(document.getElementById('y4').value);
+                // create dataset for line 1
+let dataset1 = {
+label: 'Line 1',
+data: [
+{x: x1, y: y1},
+{x: x2, y: y2}
+],
+borderColor: 'red',
+fill: false
+};// create dataset for line 2
+			let dataset2 = {
+				label: 'Line 2',
+				data: [
+					{x: x3, y: y3},
+					{x: x4, y: y4}
+				],
+				borderColor: 'blue',
+				fill: false
+			};
+
+			// update graph data
+			graphData.data.datasets = [dataset1, dataset2];
+			graphChart.update();
+
+			// calculate slope and y-intercept for line 1
+			let slope1 = (y2 - y1) / (x2 - x1);
+			let yIntercept1 = y1 - slope1 * x1;
+
+			// calculate slope and y-intercept for line 2
+			let slope2 = (y4 - y3) / (x4 - x3);
+			let yIntercept2 = y3 - slope2 * x3;
+
+			// calculate standard form and slope-intercept form for line 1
+			let a1 = y2 - y1;
+			let b1 = x1 - x2;
+			let c1 = y1 * (x2 - x1) - x1 * (y2 - y1);
+			let standardForm1 = `${a1}x + ${b1}y = ${c1}`;
+			let slopeInterceptForm1 = `y = ${slope1}x + ${yIntercept1}`;
+
+			// calculate standard form and slope-intercept form for line 2
+			let a2 = y4 - y3;
+			let b2 = x3 - x4;
+			let c2 = y3 * (x4 - x3) - x3 * (y4 - y3);
+			let standardForm2 = `${a2}x + ${b2}y = ${c2}`;
+			let slopeInterceptForm2 = `y = ${slope2}x + ${yIntercept2}`;
+
+			// display line info
+	  
+        let lineInfo = document.getElementById('line-info');
+			lineInfo.innerHTML =`
+
+				<p><strong>Line 1:</strong></p>
+				<ul>
+					<li>Slope: ${slope1}</li>
+					<li>Y-Intercept: ${yIntercept1}</li>
+					<li>Standard Form: ${standardForm1}</li>
+					<li>Slope-Intercept Form: ${slopeInterceptForm1}</li>
+				</ul>
+				<p><strong>Line 2:</strong></p>
+				<ul>
+					<li>Slope: ${slope2}</li>
+					<li>Y-Intercept: ${yIntercept2}</li>
+					<li>Standard Form: ${standardForm2}</li>
+					<li>Slope-Intercept Form: ${slopeInterceptForm2}</li>
+				</ul>
+
+			`;
+        
+
+			return false;
+		}
+	</script>
+</body>
+</html>

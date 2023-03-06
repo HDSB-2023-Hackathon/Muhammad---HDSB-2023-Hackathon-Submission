@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+	<!DOCTYPE html>
+<html>
+<head>
+	<title>Coordinate Graph</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<link rel="stylesheet" type="text/css" href="graph.css">
+</head>
+<body>
+    <div style="text-align: center;">
+	<h1>Coordinate Graph</h1>
+	<form onsubmit="return plotLines()">
+		<h2>Line 1</h2>
+		<label for="x1">x1:</label>
+		<input type="number" id="x1" name="x1">
+		<label for="y1">y1:</label>
+		<input type="number" id="y1" name="y1">
+		<br>
+		<label for="x2">x2:</label>
+		<input type="number" id="x2" name="x2">
+		<label for="y2">y2:</label>
+		<input type="number" id="y2" name="y2">
+		<br>
+		<h2>Line 2</h2>
+		<label for="x3">x1:</label>
+		<input type="number" id="x3" name="x3">
+		<label for="y3">y1:</label>
+		<input type="number" id="y3" name="y3">
+		<br>
+		<label for="x4">x2:</label>
+		<input type="number" id="x4" name="x4">
+		<label for="y4">y2:</label>
+		<input type="number" id="y4" name="y4">
+		<br>
+    <input type="submit" value="Plot Lines">
+	</form>
+    </div>
+	<div class="graph-container">
+		<canvas id="graph"></canvas>
+	</div>
+	<script src="graph.js"></script>
+</body>
+</html>
